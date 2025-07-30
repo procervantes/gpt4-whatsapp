@@ -12,7 +12,11 @@ openai.api_key = "TU_API_KEY_OPENAI"
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 import json
 import os
-creds_dict = json.loads(os.environ['GOOGLE_CREDS'])
+import json
+from google.oauth2 import service_account
+
+creds = service_account.Credentials.from_service_account_file('config/gcp-credentials.json')
+
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
 client = gspread.authorize(creds)

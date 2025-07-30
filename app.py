@@ -10,7 +10,11 @@ openai.api_key = "TU_API_KEY_OPENAI"
 
 # Configura acceso a Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("google-credentials.json", scope)
+import json
+import os
+creds_dict = json.loads(os.environ['GOOGLE_CREDS'])
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+
 client = gspread.authorize(creds)
 
 # Abre tu hoja de cálculo
